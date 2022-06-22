@@ -1,0 +1,135 @@
+<nav class="navbar navbar-expand-lg navbar-dark">
+  <div class="container container-fluid">
+    <a class="navbar-brand">
+      <i class="bi bi-egg-fried"></i>
+      Recipes
+    </a>
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarText"
+      aria-controls="navbarText"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarText">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item" [routerLink]="'/recipes'">
+          <a class="nav-link recipe-list-link">Recipe List</a>
+        </li>
+      </ul>
+      <span class="navbar-text">
+        Favourite Recipes
+        <i
+          class="bi bi-heart-fill empty-heart"
+          [routerLink]="'/fav-recipes'"
+        ></i>
+      </span>
+    </div>
+  </div>
+</nav>
+
+<main class="container my-4">
+  <button class="btn btn-warning my-4" [routerLink]="'/recipes'">
+    Back to Recipes
+  </button>
+  <form #form="ngForm" *ngIf="selectedRecipe">
+    <div class="mb-3">
+      <label for="title" class="form-label">Title</label>
+      <input
+        ngModel
+        name="title"
+        type="text"
+        class="form-control"
+        id="title"
+        aria-describedby="title"
+        [placeholder]="selectedRecipe.title"
+        required
+      />
+    </div>
+    <div class="mb-3">
+      <label for="image" class="form-label">Image</label>
+      <input
+        ngModel
+        type="text"
+        class="form-control"
+        id="image"
+        name="image"
+        [placeholder]="selectedRecipe.image"
+        required
+      />
+    </div>
+    <div class="mb-3">
+      <label for="calories" class="form-label">Calories</label>
+      <input
+        ngModel
+        name="calories"
+        type="number"
+        class="form-control"
+        id="calories"
+        [placeholder]="selectedRecipe.calories"
+        required
+      />
+    </div>
+    <div class="mb-3">
+      <label for="duration" class="form-label">Duration</label>
+      <input
+        ngModel
+        name="duration"
+        type="number"
+        class="form-control"
+        id="duration"
+        [placeholder]="selectedRecipe.cookingTime"
+        required
+      />
+    </div>
+
+    <div class="d-flex justify-content-flex-start align-items-center">
+      <h2 class="my-4 me-2">Ingredients</h2>
+    </div>
+    <div *ngFor="let ingredient of selectedRecipe.ingredients">
+      <div class="mb-3">
+        <label for="ingName" class="form-label">Ingredient Name</label>
+        <input
+          ngModel
+          name="ingName"
+          type="number"
+          class="form-control"
+          id="ingName"
+          [placeholder]="ingredient.name"
+        />
+      </div>
+      <div class="mb-3">
+        <label for="amount" class="form-label">Amount</label>
+        <input
+          ngModel
+          name="amount"
+          type="number"
+          class="form-control"
+          id="amount"
+          [placeholder]="ingredient.amount"
+        />
+      </div>
+      <div class="mb-3">
+        <label for="unit" class="form-label">Unit</label>
+        <input
+          ngModel
+          name="unit"
+          type="number"
+          class="form-control"
+          id="unit"
+          [placeholder]="ingredient.unit"
+        />
+      </div>
+    </div>
+    <!-- <button
+      class="btn btn-warning"
+      (click)="onSaveEdit(form, selectedRecipe.id)"
+    >
+      Save changes
+    </button> -->
+  </form>
+</main>

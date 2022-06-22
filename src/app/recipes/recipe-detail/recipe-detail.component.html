@@ -1,0 +1,79 @@
+<nav class="navbar navbar-expand-lg navbar-dark">
+  <div class="container container-fluid">
+    <a class="navbar-brand">
+      <i class="bi bi-egg-fried"></i>
+      Recipes
+    </a>
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarText"
+      aria-controls="navbarText"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarText">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item" [routerLink]="'/recipes'">
+          <a class="nav-link recipe-list-link">Recipe List</a>
+        </li>
+      </ul>
+      <span class="navbar-text">
+        Favourite Recipes
+        <i
+          class="bi bi-heart-fill empty-heart"
+          [routerLink]="'/fav-recipes'"
+        ></i>
+      </span>
+    </div>
+  </div>
+</nav>
+
+<main class="container" *ngIf="selectedRecipe">
+  <div class="d-flex justify-content-flex-start align-items-center">
+    <h1 class="my-4 me-2">{{ selectedRecipe.title }}</h1>
+  </div>
+
+  <div class="card" style="width: 18rem">
+    <img
+      [src]="selectedRecipe.image"
+      class="card-img-top"
+      [alt]="selectedRecipe.title"
+    />
+    <div class="card-body">
+      <h5 class="card-title">Recipe: {{ selectedRecipe.title }}</h5>
+      <p class="card-text">
+        {{ selectedRecipe.title }}
+      </p>
+    </div>
+    <ul
+      class="list-group list-group-flush"
+      *ngFor="let ingredient of selectedRecipe.ingredients"
+    >
+      <li class="list-group-item">
+        {{ ingredient.name }}
+        <span>{{ ingredient.qty }} {{ ingredient.qtyUnit }}</span>
+      </li>
+    </ul>
+    <div class="card-body">
+      <a
+        class="card-link"
+        [routerLink]="['/recipe-detail', selectedRecipe.id, 'edit-recipe']"
+        >See Ingredients</a
+      >
+      <!-- <a
+        class="card-link"
+        [routerLink]="['/recipe-detail', selectedRecipe.id, 'edit-recipe']"
+        >Edit</a
+      > -->
+      <!-- <a
+        class="card-link text-danger"
+        (click)="onDeleteRecipe(selectedRecipe.id)"
+        >Delete</a
+      > -->
+    </div>
+  </div>
+</main>

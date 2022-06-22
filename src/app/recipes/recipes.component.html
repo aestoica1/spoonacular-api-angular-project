@@ -1,0 +1,129 @@
+<nav class="navbar navbar-expand-lg navbar-dark">
+  <div class="container container-fluid">
+    <a class="navbar-brand">
+      <i class="bi bi-egg-fried"></i>
+      Recipes
+    </a>
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarText"
+      aria-controls="navbarText"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+  </div>
+</nav>
+
+<main class="container">
+  <div class="d-flex justify-content-flex-start align-items-center">
+    <h2 class="my-4 me-2" *ngIf="loadedRecipes.length > 0">All Recipes</h2>
+  </div>
+
+  <ul class="list-group">
+    <li
+      *ngFor="let recipe of loadedRecipes"
+      class="list-group-item d-flex justify-content-flex-start align-items-center"
+    >
+      <div class="image-parent me-2">
+        <img
+          [routerLink]="['/recipe-detail', recipe.id]"
+          src="{{ recipe.image }}"
+          class="img-fluid rounded"
+          [routerLink]="['/recipe-detail', recipe.id]"
+        />
+      </div>
+      <span [routerLink]="['/recipe-detail', recipe.id]">{{
+        recipe.title
+      }}</span>
+      <div class="ms-2 me-auto">
+        <span class="badge bg-warning rounded-pillbadge bg-danger rounded-pill"
+          >{{ recipe.calories }} <span>cal</span></span
+        >
+        <span
+          class="badge ms-2 me-auto bg-warning rounded-pillbadge bg-warning rounded-pill"
+          >{{ recipe.cookingTime }} <span>mins</span></span
+        >
+      </div>
+      <button (click)="onAddToFav(recipe)" class="btn btn-secondary">
+        <span>Add to &hearts;</span>
+      </button>
+    </li>
+  </ul>
+
+  <h2 class="my-4" *ngIf="favouriteRecipes.length > 0">Favourite Recipes</h2>
+  <ul class="list-group">
+    <li
+      *ngFor="let favRecipe of favouriteRecipes"
+      class="list-group-item list-group-item d-flex justify-content-flex-start align-items-center"
+    >
+      {{ favRecipe.title }}
+      <a class="text-danger ms-2" (click)="onDeleteFavRecipe(favRecipe.id)"
+        >Remove</a
+      >
+    </li>
+  </ul>
+
+  <h2 class="my-4">Add New Recipe</h2>
+  <form [formGroup]="newRecipeForm" (ngSubmit)="onSubmitNewRecipe()">
+    <div formGroupName="newRecipeData">
+      <div class="form-group">
+        <label for="title">Recipe Title</label>
+        <input
+          type="text"
+          id="title"
+          formControlName="title"
+          class="form-control"
+        />
+      </div>
+      <div class="form-group">
+        <label for="image">Recipe Img</label>
+        <input
+          type="text"
+          id="image"
+          formControlName="image"
+          class="form-control"
+        />
+      </div>
+      <div class="form-group">
+        <label for="cookingTime">Cooking time</label>
+        <input
+          type="number"
+          id="cookingTime"
+          formControlName="cookingTime"
+          class="form-control"
+        />
+      </div>
+      <div class="form-group">
+        <label for="calories">Calories</label>
+        <input
+          type="number"
+          id="calories"
+          formControlName="calories"
+          class="form-control"
+        />
+      </div>
+    </div>
+    <div formArrayName="ingredients" class="my-4">
+      <h4>Ingredients</h4>
+      <button
+        class="btn btn-sm btn-outline-warning"
+        type="button"
+        (click)="onAddIngredients()"
+      >
+        Add Ingredient
+      </button>
+      <div
+        class="form-group"
+        *ngFor="let ingredients of getControls(); let i = index"
+      >
+        <input type="text" class="form-control" [formControlName]="i" />
+      </div>
+    </div>
+
+    <button class="btn btn-lg btn-warning" type="submit">Submit</button>
+  </form>
+</main>

@@ -1,0 +1,22 @@
+@import "~bootstrap-icons/font/bootstrap-icons.css";
+
+nav {
+  background-color: #d62828;
+}
+
+.navbar-dark .navbar-nav .nav-link {
+  color: white;
+}
+
+.navbar-dark .navbar-text {
+  color: white;
+}
+
+.image-parent {
+  max-width: 40px;
+}
+
+.bi.bi-heart-fill.empty-heart,
+.recipe-list-link {
+  cursor: pointer;
+}
